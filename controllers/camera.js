@@ -35,7 +35,7 @@ exports.getOneCamera = (req, res, next) => {
 
 /**
  *
- * Expects request to contain:
+ * Expects request to contain: 
  * contact: {
  *   firstName: string,
  *   lastName: string,
