@@ -2,27 +2,6 @@
 
 var list = document.getElementById('list-products');
 
-// Fonction de récupération des données
-
-function ajaxGet(url, callback) {
-
-var request = new XMLHttpRequest();
-request.open('GET', url);
-    request.addEventListener('load', function () {
-
-        if (request.status >= 200 && request.status < 400) {
-            callback(request.responseText);
-        } else {
-            console.error(request.status + " " + request.statusText + " " + url);
-        }
-    });
-    request.addEventListener('error', function () {
-
-        console.error("erreur réseau avec l'url " + url);
-    });
-    request.send();
-};
-
 // Fonction utilisation des données
 
 function pickUp(response) {
@@ -37,17 +16,17 @@ function pickUp(response) {
         list.appendChild(card);
 
         // Création du lien vers la page produit
-        var lienImage = document.createElement('a');
-        lienImage.href = product._id;
-        lienImage.id = product._id;            // !!!!!!! ID ou HREF pour les liens produits ??
-        card.appendChild(lienImage);
+        var linkImage = document.createElement('a');
+        linkImage.href =  "produit.html#" + product._id;
+        linkImage.id = product._id;            // !!!!!!! ID ou HREF pour les liens produits ??
+        card.appendChild(linkImage);
 
         // Création de la photo
         var photo = document.createElement('img');
         photo.src = product.imageUrl;
         photo.classList.add('card-img-top');
         photo.classList.add('rounded');
-        lienImage.appendChild(photo);
+        linkImage.appendChild(photo);
 
         // Création corps de carte
         var body = document.createElement('div');
