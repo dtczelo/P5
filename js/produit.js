@@ -6,6 +6,7 @@ var productElt = document.getElementById("product");
 
 var path = window.location.hash.substr(1);
 
+// Fonction créant la structure de la page
 function pickUpProduct(response) {
   var product = JSON.parse(response);
 
@@ -80,12 +81,24 @@ function pickUpProduct(response) {
 
   // Création du lien vers la page produit
   var linkBuy = document.createElement("a");
-  linkBuy.href = "produit.html#" + product._id;
+  linkBuy.href = "#";
   linkBuy.id = product._id; // !!!!!!! ID ou HREF pour les liens produits ??
   linkBuy.classList.add('card-text');
   linkBuy.classList.add('float-right');
   linkBuy.textContent = 'Ajouter au panier';
   body.appendChild(linkBuy);
+
+  // Clic sur le bouton d'ajout au panier
+  linkBuy.addEventListener('click', function (e) {
+      e.preventDefault;
+      for (let i = 0; i < orders.length; i++) {
+          var order = orders[i];
+          if (order.id == product._id) {
+              orders[i].quantity =+ 1;
+          }          
+      }
+      window.alert('Article ajouté à votre panier !');
+  })
 
   // Création espace pour message d'erreur
   var error = document.createElement("div");

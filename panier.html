@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Panier</title>
+</head>
+
+<body>
+    <header class="bg-dark">
+        <a class="navbar-brand m-1" href="/liste.html">
+            <h1>ORINOCO</h1>
+        </a>
+    </header>
+
+    <div class="container-fluid">
+
+        <h3 class="m-3">Récapitulatif du panier</h3>
+        <table class="table table-hover m-5" id="orders">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Nom du produit</th>
+                    <th scope="col">Quantité</th>
+                    <th scope="col">Sous-total</th>
+                </tr>
+            </thead>
+            <tbody id="ordersTable">
+
+                <tr>
+                    <td><img width="100" src="./images/teddy_1.jpg"></td>
+                    <td>Billie</td>
+                    <td>2</td>
+                    <td>100 €</td>
+                </tr>
+
+                <div>
+                    <tr>
+                        <td></td>
+                        <td>
+                        <th>Montant global</th>
+                        <td id="totalOrder">€</td>
+                    </tr>
+                </div>
+
+            </tbody>
+        </table>
+
+        <div class="row">
+
+            <form id="contactForm" class="col-5 m-3">
+
+                <div class="form-row">
+                    <h3 class="mb-4">Informations de contact</h3>
+                    <div class="form-group col-md-6">
+                        <label for="lastname">Nom</label>
+                        <input type="text" class="form-control" id="inputLastName">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="firstname">Prénom</label>
+                        <input type="text" class="form-control" id="inputFirstName">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="inputEmail">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <h3 class="mb-4">Adresse de livraison</h3>
+                    <div class="form-group col-md-12">
+                        <label for="address">Addresse</label>
+                        <input type="text" class="form-control" id="inputAddress">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="city">Ville</label>
+                        <input type="text" class="form-control" id="inputCity">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="zip">Code postal</label>
+                        <input type="text" class="form-control" id="inputZip">
+                    </div>
+                </div>
+
+            </form>
+
+            <form id="paymentForm" class="col-5 m-3">
+
+                <div class="form-row">
+                    <h3 class="mb-4">Méthode paiement</h3>
+                    <div class="form-group col-md-12">
+                        <label for="cardOwner">Titulaire de la carte</label>
+                        <input type="text" class="form-control" id="inputLastName">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="cardNumber">Numéro de carte bancaire</label>
+                        <input type="email" class="form-control" id="inputEmail">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="expirationDate">Date d'expiration</label>
+                        <input type="text" class="form-control" id="inputCity" placeholder="xx/xxxx">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="cryptoCard">Cryptogramme</label>
+                        <input type="text" class="form-control" id="inputZip">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Passer commande</button>
+            </form>
+        </div>
+    </div>
+
+    <!--
+        <h3 class="mb-4">Informations de contact</h3>
+        <h3 class="mb-4">Adresse de livraison</h3>
+
+    -->
+
+    <script src="./js/fonction.js"></script>
+    <script src="./js/panier.js"></script>
+</body>
+
+</html>

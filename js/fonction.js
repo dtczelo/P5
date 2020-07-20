@@ -15,3 +15,17 @@ function ajaxGet(url, callback) {
     });
     request.send();
   }
+
+// Tableau des commandes
+var orders = [];
+// Boucle créant les différent objet de commande
+function pickUp(response) {
+    var products = JSON.parse(response);
+    for (let i = 0; i < products.length; i++) {
+        var product = products[i];
+        var key = product._id;
+        orders.push({id: key, quantity: 0})
+    }
+}
+
+ajaxGet("http://localhost:3000/api/teddies", pickUp); 
