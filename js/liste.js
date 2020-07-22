@@ -1,9 +1,9 @@
 // Variables document HTML
 
-var list = document.getElementById('list-products');
+var listElt = document.getElementById('list-products');
 
 // Fonction créant la structure de la page liste
-function pickUp(response) {
+function pickUpList(response) {
     var products = JSON.parse(response);
     for (let i = 0; i < products.length; i++) {
         var product = products[i];
@@ -12,7 +12,7 @@ function pickUp(response) {
         card.classList.add('card');
         card.classList.add('m-5');
         card.classList.add('shadow');
-        list.appendChild(card);
+        listElt.appendChild(card);
 
         // Création du lien vers la page produit
         var linkImage = document.createElement('a');
@@ -50,4 +50,4 @@ function pickUp(response) {
     }
 }
 
-ajaxGet("http://localhost:3000/api/teddies", pickUp); 
+ajaxGet("http://localhost:3000/api/teddies", pickUpList); 

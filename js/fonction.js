@@ -33,7 +33,7 @@ function ajaxPost(url, data, callback) {
 }
 
 // Boucle créant les différent objet de commande dans la mémoire de session
-function pickUp(response) {
+function pickUpSession(response) {
   var products = JSON.parse(response);
   if (sessionStorage.IsThisFirstTime_Log_From_LiveServer === "true") {
     for (let i = 0; i < products.length; i++) {
@@ -48,4 +48,4 @@ function pickUp(response) {
   }
 }
 
-ajaxGet("http://localhost:3000/api/teddies", pickUp);
+ajaxGet("http://localhost:3000/api/teddies", pickUpSession);

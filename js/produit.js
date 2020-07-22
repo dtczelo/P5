@@ -1,9 +1,7 @@
 // Variables document HTML
-
 var productElt = document.getElementById("product");
 
 // Récupération de l'ancre
-
 var path = window.location.hash.substr(1);
 
 // Fonction créant la structure de la page produit
@@ -95,7 +93,7 @@ function pickUpProduct(response) {
         var orderId = sessionStorage.key(i);
         var orderQuantity = sessionStorage.getItem(orderId);
         if (orderId == product._id) {
-          var qty = parseInt(orderQuantity) + 1;
+          var qty = parseInt(orderQuantity, 10) + 1;
           sessionStorage.setItem(orderId, qty);
         }
       }
