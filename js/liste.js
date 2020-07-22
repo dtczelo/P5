@@ -2,8 +2,7 @@
 
 var list = document.getElementById('list-products');
 
-// Fonction utilisation des données
-
+// Fonction créant la structure de la page liste
 function pickUp(response) {
     var products = JSON.parse(response);
     for (let i = 0; i < products.length; i++) {

@@ -6,7 +6,7 @@ var productElt = document.getElementById("product");
 
 var path = window.location.hash.substr(1);
 
-// Fonction créant la structure de la page
+// Fonction créant la structure de la page produit
 function pickUpProduct(response) {
   var product = JSON.parse(response);
 
@@ -47,58 +47,62 @@ function pickUpProduct(response) {
 
   // Création du formulaire (Choix de couleur)
 
-  var form = document.createElement('form');
+  var form = document.createElement("form");
   body.appendChild(form);
-  var p = document.createElement('p');
+  var p = document.createElement("p");
   form.appendChild(p);
-  var label = document.createElement('label');
-  label.setAttribute('for', 'color');
-  label.textContent = 'Couleur disponible :';
+  var label = document.createElement("label");
+  label.setAttribute("for", "color");
+  label.textContent = "Couleur disponible :";
   p.appendChild(label);
-  var select = document.createElement('select');
-  select.classList.add('form-control');
-  select.setAttribute('name','color');
-  select.id = 'color';
+  var select = document.createElement("select");
+  select.classList.add("form-control");
+  select.setAttribute("name", "color");
+  select.id = "color";
   p.appendChild(select);
 
   // Création de la première option par défaut
 
-  var optionDefault = document.createElement('option');
-  optionDefault.value = 'default';
-  optionDefault.textContent = 'Choisir sa couleur';
-  optionDefault.setAttribute('selected', 'selected');
+  var optionDefault = document.createElement("option");
+  optionDefault.value = "default";
+  optionDefault.textContent = "Choisir sa couleur";
   select.appendChild(optionDefault);
 
   // Boucle parcourant les couleurs disponibles
 
   for (let i = 0; i < product.colors.length; i++) {
-      var color = product.colors[i];
-      var option = document.createElement('option')
-      option.textContent = color;
-      option.value = color;
-      select.appendChild(option);      
+    var color = product.colors[i];
+    var option = document.createElement("option");
+    option.textContent = color;
+    option.value = color;
+    select.appendChild(option);
   }
 
   // Création du lien vers la page produit
   var linkBuy = document.createElement("a");
-  linkBuy.href = "#";
+  linkBuy.href = window.location.hash;
   linkBuy.id = product._id; // !!!!!!! ID ou HREF pour les liens produits ??
-  linkBuy.classList.add('card-text');
-  linkBuy.classList.add('float-right');
-  linkBuy.textContent = 'Ajouter au panier';
+  linkBuy.classList.add("card-text");
+  linkBuy.classList.add("float-right");
+  linkBuy.textContent = "Ajouter au panier";
   body.appendChild(linkBuy);
 
   // Clic sur le bouton d'ajout au panier
-  linkBuy.addEventListener('click', function (e) {
-      e.preventDefault;
-      for (let i = 0; i < orders.length; i++) {
-          var order = orders[i];
-          if (order.id == product._id) {
-              orders[i].quantity =+ 1;
-          }          
+  linkBuy.addEventListener("click", function (e) {
+    e.preventDefault;
+    if (document.getElementById('color').value != "default") {
+      for (let i = 0; i < sessionStorage.length; i++) {
+        var orderId = sessionStorage.key(i);
+        var orderQuantity = sessionStorage.getItem(orderId);
+        if (orderId == product._id) {
+          var qty = parseInt(orderQuantity) + 1;
+          sessionStorage.setItem(orderId, qty);
+        }
       }
-      window.alert('Article ajouté à votre panier !');
-  })
+      window.alert("Article ajouté à votre panier !");
+    } else
+    window.alert("Veuilez choisir une couleur");
+  });
 
   // Création espace pour message d'erreur
   var error = document.createElement("div");
