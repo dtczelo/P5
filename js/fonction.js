@@ -15,10 +15,11 @@ function ajaxGet(url, callback) {
   request.send();
 }
 
-// Fonction de récupération des données serveur
+// Fonction d'envoi des données serveur
 function ajaxPost(url, data, callback) {
   var request = new XMLHttpRequest();
   request.open("POST", url);
+  request.setRequestHeader('content-type', 'application/json');
   request.addEventListener("load", function () {
     if (request.status >= 200 && request.status < 400) {
       callback(request.responseText);
