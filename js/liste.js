@@ -16,8 +16,7 @@ function pickUpList(response) {
 
         // Création du lien vers la page produit
         var linkImage = document.createElement('a');
-        linkImage.href =  "produit.html#" + product._id;
-        linkImage.id = product._id;            // !!!!!!! ID ou HREF pour les liens produits ??
+        linkImage.href =  "produit.html?id=" + product._id;
         card.appendChild(linkImage);
 
         // Création de la photo
@@ -40,7 +39,7 @@ function pickUpList(response) {
 
         // Création du prix
         var price = document.createElement('p');
-        price.textContent = 'Prix : ' + (product.price/100) + ' €';  // !!!!!!! prix = Solution facile 
+        price.textContent = 'Prix : ' + (product.price/100) + ' €'; 
         body.appendChild(price);
 
         // Création description

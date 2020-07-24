@@ -1,8 +1,9 @@
 // Variables document HTML
 var productElt = document.getElementById("product");
 
-// Récupération de l'ancre
-var path = window.location.hash.substr(1);
+// Récupération de l'id produit
+   var path = new URL(window.location);
+   var id = path.searchParams.get('id');
 
 // Fonction créant la structure de la page produit
 function pickUpProduct(response) {
@@ -35,7 +36,7 @@ function pickUpProduct(response) {
 
   // Création du prix
   var price = document.createElement("p");
-  price.textContent = "Prix : " + product.price / 100 + " €"; // !!!!!!! prix = Solution facile
+  price.textContent = "Prix : " + product.price / 100 + " €";
   body.appendChild(price);
 
   // Création description
@@ -76,10 +77,10 @@ function pickUpProduct(response) {
     select.appendChild(option);
   }
 
-  // Création du lien vers la page produit
+  // Création du lien d'ajout au panier
   var linkBuy = document.createElement("a");
   linkBuy.href = window.location.hash;
-  linkBuy.id = product._id; // !!!!!!! ID ou HREF pour les liens produits ??
+  linkBuy.id = product._id;
   linkBuy.classList.add("card-text");
   linkBuy.classList.add("float-right");
   linkBuy.textContent = "Ajouter au panier";
@@ -89,14 +90,17 @@ function pickUpProduct(response) {
   linkBuy.addEventListener("click", function (e) {
     e.preventDefault;
     if (document.getElementById('color').value != "default") {
-      for (let i = 0; i < sessionStorage.length; i++) {
-        var orderId = sessionStorage.key(i);
-        var orderQuantity = sessionStorage.getItem(orderId);
-        if (orderId == product._id) {
-          var qty = parseInt(orderQuantity, 10) + 1;
-          sessionStorage.setItem(orderId, qty);
-        }
+      if (sessionStorage.getItem('basket') === null) {
+        sessionStorage.setItem('basket', JSON.stringify([]));
       }
+      var basket = JSON.parse(sessionStorage.getItem('basket'));
+      var product = basket.find(product => product.id == id);
+      if (product != undefined) {
+        product.qty += 1;
+      } else {
+        basket.push({id: id, qty: 1});
+      }
+      sessionStorage.setItem('basket', JSON.stringify(basket));
       window.alert("Article ajouté à votre panier !");
     } else
     window.alert("Veuilez choisir une couleur");
@@ -108,4 +112,4 @@ function pickUpProduct(response) {
   body.appendChild(error);
 }
 
-ajaxGet("http://localhost:3000/api/teddies" + "/" + path, pickUpProduct);
+ajaxGet("http://localhost:3000/api/teddies" + "/" + id, pickUpProduct);

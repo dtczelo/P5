@@ -32,21 +32,3 @@ function ajaxPost(url, data, callback) {
   });
   request.send(data);
 }
-
-// Boucle créant les différent objet de commande dans la mémoire de session
-function pickUpSession(response) {
-  var products = JSON.parse(response);
-  if (sessionStorage.IsThisFirstTime_Log_From_LiveServer === "true") {
-    for (let i = 0; i < products.length; i++) {
-      var product = products[i];
-      var key = product._id;
-      sessionStorage.setItem(key, 0);
-    }
-    sessionStorage.IsThisFirstTime_Log_From_LiveServer = false;
-    console.log('Nouvelle session');
-  } else {
-    console.log('Session en cours');
-  }
-}
-
-ajaxGet("http://localhost:3000/api/teddies", pickUpSession);

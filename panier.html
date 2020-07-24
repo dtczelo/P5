@@ -28,7 +28,7 @@
                 </tr>
             </thead>
             <tbody id="ordersTable">
-                <!--
+            <!--   REFERENCE LIGNE PANIER
                 <tr>
                     <td><img width="100" src="./images/teddy_1.jpg"></td>
                     <td>Billie</td>
@@ -48,75 +48,42 @@
 
         <div class="row">
 
-            <form id="contactForm" class="col-5 m-3">
+            <form id="contactForm" class="col-12 m-3">
 
+                <h3 class="mb-4">Informations de contact</h3>
                 <div class="form-row">
-                    <h3 class="mb-4">Informations de contact</h3>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-10 col-md-5">
                         <label for="lastname">Nom</label>
                         <input type="text" class="form-control" id="inputLastName" required>
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-10 col-md-5">
                         <label for="firstname">Prénom</label>
                         <input type="text" class="form-control" id="inputFirstName" required>
                     </div>
                 </div>
 
                 <div class="form-row">
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-10 col-md-10">
                         <label for="email">Email</label>
                         <input type="email" class="form-control" id="inputEmail" required>
                     </div>
                 </div>
+                <h3 class="mb-4">Adresse de livraison</h3>
                 <div class="form-row">
-                    <h3 class="mb-4">Adresse de livraison</h3>
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-10 col-md-10">
                         <label for="address">Addresse</label>
                         <input type="text" class="form-control" id="inputAddress" required>
                     </div>
                 </div>
 
                 <div class="form-row">
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-10 col-md-5">
                         <label for="city">Ville</label>
                         <input type="text" class="form-control" id="inputCity" required>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="zip">Code postal</label>
-                        <input type="number" class="form-control" id="inputZip">
                     </div>
                 </div>
 
                 <button id="button" type="button" class="btn btn-primary">Confirmer commande</button>
-
-            </form>
-
-            <form id="paymentForm" class="col-5 m-3">
-
-                <div class="form-row">
-                    <h3 class="mb-4">Méthode paiement</h3>
-                    <div class="form-group col-md-12">
-                        <label for="cardOwner">Titulaire de la carte</label>
-                        <input type="text" class="form-control" id="inputcardOwner">
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group col-md-12">
-                        <label for="cardNumber">Numéro de carte bancaire</label>
-                        <input type="number" class="form-control" id="inputCardNumber">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="expirationDate">Date d'expiration</label>
-                        <input type="datetime" class="form-control" id="inputExpirationDate" placeholder="ex : 06/2024">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="cryptoCard">Cryptogramme</label>
-                        <input type="number" class="form-control" id="inputCryptoCard">
-                    </div>
-                </div>
 
             </form>
         </div>
@@ -124,6 +91,7 @@
 
     <script src="./js/fonction.js"></script>
     <script src="./js/panier.js"></script>
+    <script src="./js/confirmation.js"></script>
 </body>
 
 </html>
