@@ -23,6 +23,7 @@ function ajaxPost(url, data, callback) {
   request.addEventListener("load", function () {
     if (request.status >= 200 && request.status < 400) {
       callback(request.responseText);
+      document.location.href="/confirmation.html"
     } else {
       console.error(request.status + " " + request.statusText + " " + url);
     }

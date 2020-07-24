@@ -10,7 +10,7 @@ function pickUpProduct(response) {
   var product = JSON.parse(response);
 
   // Création de la carte produit
-  var card = document.createElement("div");
+  var card = document.createElement("article");
   card.classList.add("card");
   card.classList.add("m-5");
   card.classList.add("shadow");

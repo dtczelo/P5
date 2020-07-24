@@ -21,6 +21,7 @@ function getBasket() {
         var basketProduct = basket.find((p) => p.id == product._id);
         totalPrice += product.price * basketProduct.qty;
         sumOrders.textContent = totalPrice / 100 + " €";
+        sessionStorage.setItem('totalPrice', totalPrice);
         pickUpOrders(product, basketProduct.qty);
       });
     }
@@ -83,3 +84,7 @@ document.getElementById("button").addEventListener("click", function (e) {
   data = JSON.stringify({ contact, products });
   ajaxPost("http://localhost:3000/api/teddies/order", data, commandToSend);
 });
+
+function commandToSend(response) {
+  sessionStorage.setItem('serverResponse', response)
+}
