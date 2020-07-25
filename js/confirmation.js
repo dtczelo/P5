@@ -1,6 +1,6 @@
-var serverResponse = JSON.parse(sessionStorage.getItem('serverResponse'));
+var serverResponse = JSON.parse(localStorage.getItem('serverResponse'));
 
 //
 
 document.getElementById('orderId').textContent = serverResponse.orderId;
-document.getElementById('totalOrder').textContent = (sessionStorage.getItem('totalPrice') / 100) + " €";
+document.getElementById('totalOrder').textContent = (localStorage.getItem('totalPrice') / 100) + " €";

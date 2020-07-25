@@ -7,7 +7,7 @@ var sumOrders = document.getElementById("sumOrders");
 var totalPrice = 0;
 
 function getBasket() {
-  var basket = JSON.parse(sessionStorage.getItem("basket"));
+  var basket = JSON.parse(localStorage.getItem("basket"));
   // Si panier vide
   if (basket == null) {
     var tr = document.createElement("tr");
@@ -21,7 +21,7 @@ function getBasket() {
         var basketProduct = basket.find((p) => p.id == product._id);
         totalPrice += product.price * basketProduct.qty;
         sumOrders.textContent = totalPrice / 100 + " €";
-        sessionStorage.setItem('totalPrice', totalPrice);
+        localStorage.setItem('totalPrice', totalPrice);
         pickUpOrders(product, basketProduct.qty);
       });
     }
@@ -77,7 +77,7 @@ document.getElementById("button").addEventListener("click", function (e) {
     city: form.elements[3].value,
     email: form.elements[4].value,
   };
-  var basket = JSON.parse(sessionStorage.getItem("basket"));
+  var basket = JSON.parse(localStorage.getItem("basket"));
   for (var product of basket) {
     products.push(product.id);
   }
@@ -86,5 +86,5 @@ document.getElementById("button").addEventListener("click", function (e) {
 });
 
 function commandToSend(response) {
-  sessionStorage.setItem('serverResponse', response)
+  localStorage.setItem('serverResponse', response)
 }

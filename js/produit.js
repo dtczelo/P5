@@ -90,17 +90,17 @@ function pickUpProduct(response) {
   linkBuy.addEventListener("click", function (e) {
     e.preventDefault;
     if (document.getElementById('color').value != "default") {
-      if (sessionStorage.getItem('basket') === null) {
-        sessionStorage.setItem('basket', JSON.stringify([]));
+      if (localStorage.getItem('basket') === null) {
+        localStorage.setItem('basket', JSON.stringify([]));
       }
-      var basket = JSON.parse(sessionStorage.getItem('basket'));
+      var basket = JSON.parse(localStorage.getItem('basket'));
       var product = basket.find(product => product.id == id);
       if (product != undefined) {
         product.qty += 1;
       } else {
         basket.push({id: id, qty: 1});
       }
-      sessionStorage.setItem('basket', JSON.stringify(basket));
+      localStorage.setItem('basket', JSON.stringify(basket));
       window.alert("Article ajouté à votre panier !");
     } else
     window.alert("Veuilez choisir une couleur");
