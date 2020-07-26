@@ -105,11 +105,6 @@ function pickUpProduct(response) {
     } else
     window.alert("Veuilez choisir une couleur");
   });
-
-  // Création espace pour message d'erreur
-  var error = document.createElement("div");
-  error.id = "errorProduct";
-  body.appendChild(error);
 }
 
 ajaxGet("http://localhost:3000/api/teddies" + "/" + id, pickUpProduct);

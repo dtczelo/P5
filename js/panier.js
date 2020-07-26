@@ -11,17 +11,19 @@ function getBasket() {
   // Si panier vide
   if (basket == null) {
     var tr = document.createElement("tr");
-    tr.textContent = 'Votre panier est vide';
+    tr.textContent = "Votre panier est vide";
     ordersElt.insertBefore(tr, totalOrdersElt);
   } else {
     // Sinon récupère les données des produits présents dans le panier
     for (var product of basket) {
-      ajaxGet("http://localhost:3000/api/teddies" + "/" + product.id, function (response) {
+      ajaxGet("http://localhost:3000/api/teddies" + "/" + product.id, function (
+        response
+      ) {
         var product = JSON.parse(response);
         var basketProduct = basket.find((p) => p.id == product._id);
         totalPrice += product.price * basketProduct.qty;
         sumOrders.textContent = totalPrice / 100 + " €";
-        localStorage.setItem('totalPrice', totalPrice);
+        localStorage.setItem("totalPrice", totalPrice);
         pickUpOrders(product, basketProduct.qty);
       });
     }
@@ -61,30 +63,60 @@ function pickUpOrders(product, qty) {
 
 getBasket();
 
-// Requête d'envoi des données du formulaire au serveur
-
 var form = document.getElementById("contactForm");
+var emailValid = false;
+var validationError = false;
 
+// Alerte saisie des données email
+form.elements[2].addEventListener("blur", function (e) {
+  if (!/.+@.+\..+/.test(form.elements[2].value)) {
+    if (!form.elements[2].classList.contains("bg-danger")) {
+      form.elements[2].classList.add("bg-danger");
+      document.getElementById('errorEmail').textContent = 'Veuillez entrer une adresse e-mail valide';
+      emailValid = false;
+    }
+  } else {
+    form.elements[2].classList.remove("bg-danger");
+    form.elements[2].classList.add("bg-success");
+    document.getElementById('errorEmail').textContent = '';
+    emailValid = true;
+  }
+});
+
+// Clic sur le bouton de confirmation de commande
 document.getElementById("button").addEventListener("click", function (e) {
   e.preventDefault;
   var data;
   var contact = {};
   var products = [];
-  contact = {
-    firstName: form.elements[1].value,
-    lastName: form.elements[0].value,
-    address: form.elements[2].value,
-    city: form.elements[3].value,
-    email: form.elements[4].value,
-  };
-  var basket = JSON.parse(localStorage.getItem("basket"));
-  for (var product of basket) {
-    products.push(product.id);
+  // Validation des données avant envoi au serveur
+  if (emailValid) {
+    contact = {
+      firstName: form.elements[1].value,
+      lastName: form.elements[0].value,
+      address: form.elements[3].value,
+      city: form.elements[4].value,
+      email: form.elements[2].value,
+    };
+    var basket = JSON.parse(localStorage.getItem("basket"));
+    for (var product of basket) {
+      products.push(product.id);
+    }
+    data = JSON.stringify({ contact, products });
+    ajaxPost("http://localhost:3000/api/teddies/order", data, commandToSend);
+  } else {
+    // Création d'espace pour message d'erreur
+    if (!validationError) {
+      var error = document.createElement("p");
+      error.classList.add("text-danger");
+      error.classList.add("p-2");
+      error.textContent = "Tous les champs ne sont pas corrects";
+      form.insertBefore(error, document.getElementById("button"));
+    }
+    validationError = true;
   }
-  data = JSON.stringify({ contact, products });
-  ajaxPost("http://localhost:3000/api/teddies/order", data, commandToSend);
 });
 
 function commandToSend(response) {
-  localStorage.setItem('serverResponse', response)
+  localStorage.setItem("serverResponse", response);
 }
