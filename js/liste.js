@@ -2,13 +2,14 @@
 
 var listElt = document.getElementById('list-products');
 
-// Fonction créant la structure de la page liste
-function pickUpList(response) {
+// Fonction créant la structure de la page liste    
+
+ajaxGet("http://localhost:3000/api/teddies").then(function (response) {
     var products = JSON.parse(response);
     for (let i = 0; i < products.length; i++) {
         var product = products[i];
         // Création de la carte produit
-        var card = document.createElement('div');
+        var card = document.createElement('article');
         card.classList.add('card');
         card.classList.add('m-5');
         card.classList.add('shadow');
@@ -47,6 +48,6 @@ function pickUpList(response) {
         description.textContent = product.description;
         body.appendChild(description);
     }
-}
-
-ajaxGet("http://localhost:3000/api/teddies", pickUpList); 
+}).catch(function (error) {
+    console.error('Erreur lors de la récupération des données, ' + error);
+})

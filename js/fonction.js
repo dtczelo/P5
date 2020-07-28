@@ -1,35 +1,35 @@
 // Fonction de récupération des données serveur
-function ajaxGet(url, callback) {
-  var request = new XMLHttpRequest();
-  request.open("GET", url);
-  request.addEventListener("load", function () {
-    if (request.status >= 200 && request.status < 400) {
-      callback(request.responseText);
-    } else {
-      console.error(request.status + " " + request.statusText + " " + url);
-    }
+const ajaxGet = function (url) {
+  return new Promise(function (resolve, reject) {
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function () {
+      if (request.readyState === 4) {
+        if (request.status === 200) {
+          resolve(request.responseText);
+        } else {
+          reject('Statut de la requete : ' + request.status + ", Url : " + url);
+        }
+      }
+    };
+    request.open("GET", url, true);
+    request.send();
   });
-  request.addEventListener("error", function () {
-    console.error("erreur réseau avec l'url " + url);
-  });
-  request.send();
-}
+};
 
-// Fonction d'envoi des données serveur
-function ajaxPost(url, data, callback) {
-  var request = new XMLHttpRequest();
-  request.open("POST", url);
-  request.setRequestHeader('content-type', 'application/json');
-  request.addEventListener("load", function () {
-    if (request.status >= 200 && request.status < 400) {
-      callback(request.responseText);
-      document.location.href="/confirmation.html"
-    } else {
-      console.error(request.status + " " + request.statusText + " " + url);
+const ajaxPost = function (url, data) {
+  return new Promise(function (resolve, reject) {
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function () {
+      if (request.readyState === 4) {
+        if (request.status = 201) {
+          resolve(request.responseText);
+        } else {
+          reject('Statut de la requete : ' + request.status + ", Url : " + url);
+        }
+      }
     }
-  });
-  request.addEventListener("error", function () {
-    console.error("erreur réseau avec l'url " + url);
-  });
-  request.send(data);
+    request.open("POST", url, true);
+    request.setRequestHeader("content-type", "application/json");
+    request.send(data);
+  })
 }

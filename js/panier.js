@@ -16,16 +16,16 @@ function getBasket() {
   } else {
     // Sinon récupère les données des produits présents dans le panier
     for (var product of basket) {
-      ajaxGet("http://localhost:3000/api/teddies" + "/" + product.id, function (
-        response
-      ) {
+      ajaxGet("http://localhost:3000/api/teddies" + "/" + product.id).then(function (response) {
         var product = JSON.parse(response);
         var basketProduct = basket.find((p) => p.id == product._id);
         totalPrice += product.price * basketProduct.qty;
         sumOrders.textContent = totalPrice / 100 + " €";
         localStorage.setItem("totalPrice", totalPrice);
         pickUpOrders(product, basketProduct.qty);
-      });
+      }).catch(function (error) {
+        console.error('Erreur lors de la récupération des données produit pour constituer le panier, ' + error);
+      })
     }
   }
 }
@@ -65,7 +65,7 @@ getBasket();
 
 var form = document.getElementById("contactForm");
 var emailValid = false;
-var validationError = false;
+//var validationError = false;
 
 // Alerte saisie des données email
 form.elements[2].addEventListener("blur", function (e) {
@@ -84,8 +84,8 @@ form.elements[2].addEventListener("blur", function (e) {
 });
 
 // Clic sur le bouton de confirmation de commande
-document.getElementById("button").addEventListener("click", function (e) {
-  e.preventDefault;
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
   var data;
   var contact = {};
   var products = [];
@@ -103,8 +103,14 @@ document.getElementById("button").addEventListener("click", function (e) {
       products.push(product.id);
     }
     data = JSON.stringify({ contact, products });
-    ajaxPost("http://localhost:3000/api/teddies/order", data, commandToSend);
-  } else {
+    ajaxPost("http://localhost:3000/api/teddies/order", data).then(function (response) {
+      localStorage.removeItem('basket');
+      localStorage.setItem("serverResponse", response);
+      window.location.href = '/confirmation.html';
+    }).catch(function (error) {
+      console.error('Erreur lors de la requête POST d\'envoi des données au serveur, ' + error);
+    });
+  } /*else {
     // Création d'espace pour message d'erreur
     if (!validationError) {
       var error = document.createElement("p");
@@ -113,10 +119,6 @@ document.getElementById("button").addEventListener("click", function (e) {
       error.textContent = "Tous les champs ne sont pas corrects";
       form.insertBefore(error, document.getElementById("button"));
     }
-    validationError = true;
-  }
+    validationError = true; 
+  } */
 });
-
-function commandToSend(response) {
-  localStorage.setItem("serverResponse", response);
-}

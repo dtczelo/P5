@@ -2,11 +2,13 @@
 var productElt = document.getElementById("product");
 
 // Récupération de l'id produit
-   var path = new URL(window.location);
-   var id = path.searchParams.get('id');
+var path = new URL(window.location);
+var id = path.searchParams.get("id");
 
 // Fonction créant la structure de la page produit
-function pickUpProduct(response) {
+
+ajaxGet("http://localhost:3000/api/teddies" + "/" + id)
+.then(function (response) {
   var product = JSON.parse(response);
 
   // Création de la carte produit
@@ -88,23 +90,22 @@ function pickUpProduct(response) {
 
   // Clic sur le bouton d'ajout au panier
   linkBuy.addEventListener("click", function (e) {
-    e.preventDefault;
-    if (document.getElementById('color').value != "default") {
-      if (localStorage.getItem('basket') === null) {
-        localStorage.setItem('basket', JSON.stringify([]));
+    e.preventDefault();
+    if (document.getElementById("color").value != "default") {
+      if (localStorage.getItem("basket") === null) {
+        localStorage.setItem("basket", JSON.stringify([]));
       }
-      var basket = JSON.parse(localStorage.getItem('basket'));
-      var product = basket.find(product => product.id == id);
+      var basket = JSON.parse(localStorage.getItem("basket"));
+      var product = basket.find((product) => product.id == id);
       if (product != undefined) {
         product.qty += 1;
       } else {
-        basket.push({id: id, qty: 1});
+        basket.push({ id: id, qty: 1 });
       }
-      localStorage.setItem('basket', JSON.stringify(basket));
+      localStorage.setItem("basket", JSON.stringify(basket));
       window.alert("Article ajouté à votre panier !");
-    } else
-    window.alert("Veuilez choisir une couleur");
+    } else window.alert("Veuilez choisir une couleur");
   });
-}
-
-ajaxGet("http://localhost:3000/api/teddies" + "/" + id, pickUpProduct);
+}).catch(function (error) {
+  console.error('Erreur lors de la récupération des données produit, ' + error);
+})
