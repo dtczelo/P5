@@ -1,7 +1,8 @@
 // Variables document HTML
-var ordersElt = document.getElementById("ordersTable");
-var totalOrdersElt = document.getElementById("totalOrders");
-var sumOrders = document.getElementById("sumOrders");
+var ordersElt = document.getElementById('ordersTable');
+var totalOrdersElt = document.getElementById('totalOrders');
+var sumOrders = document.getElementById('sumOrders');
+var resetBasket = document.getElementById('resetBasket');
 
 // Initialisation de la variable pour le montant global
 var totalPrice = 0;
@@ -13,6 +14,7 @@ function getBasket() {
         var tr = document.createElement("tr");
         tr.textContent = "Votre panier est vide";
         ordersElt.insertBefore(tr, totalOrdersElt);
+        resetBasket.classList.add('invisible');
     } else {
         // Sinon récupère les données des produits présents dans le panier
         for (var product of basket) {
@@ -32,6 +34,10 @@ function getBasket() {
                     );
                 });
         }
+        resetBasket.addEventListener('click', function (e) {
+            localStorage.removeItem('basket');
+            window.location.reload();
+        })
     }
 }
 
