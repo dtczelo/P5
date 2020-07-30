@@ -69,6 +69,7 @@ function pickUpOrders(product, qty) {
 getBasket();
 
 var form = document.getElementById("contactForm");
+var errorBasket = true
 // var emailValid = false;
 
 /*
@@ -96,7 +97,17 @@ form.addEventListener("submit", function (e) {
     var data;
     var contact = {};
     var products = [];
-    // Validation des données avant envoi au serveur
+    var basket = JSON.parse(localStorage.getItem("basket"));
+    // Validation panier avant envoi au serveur
+    if (basket === null) {
+        if (errorBasket) {
+        var error = document.createElement("p");
+        error.textContent = "Votre panier est vide";
+        error.classList.add('text-danger');
+        form.insertBefore(error, document.getElementById("button"));
+        errorBasket = false;
+        }
+    } else {
     contact = {
         firstName: form.elements[1].value,
         lastName: form.elements[0].value,
@@ -104,16 +115,10 @@ form.addEventListener("submit", function (e) {
         city: form.elements[4].value,
         email: form.elements[2].value,
     };
-    var basket = JSON.parse(localStorage.getItem("basket"));
     for (var product of basket) {
         products.push(product.id);
     }
     data = JSON.stringify({ contact, products });
-    if (basket === null) {
-        var p = document.createElement("p");
-        tr.textContent = "Votre panier est vide";
-        form.insertBefore(error, document.getElementById("button"));
-    } else {
         ajaxPost("http://localhost:3000/api/teddies/order", data)
             .then(function (response) {
                 localStorage.removeItem("basket");
