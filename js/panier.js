@@ -102,23 +102,29 @@ form.addEventListener("submit", function (e) {
         lastName: form.elements[0].value,
         address: form.elements[3].value,
         city: form.elements[4].value,
-        email: form.elements[2].value
+        email: form.elements[2].value,
     };
     var basket = JSON.parse(localStorage.getItem("basket"));
     for (var product of basket) {
         products.push(product.id);
     }
     data = JSON.stringify({ contact, products });
-    ajaxPost("http://localhost:3000/api/teddies/order", data)
-        .then(function (response) {
-            localStorage.removeItem("basket");
-            localStorage.setItem("serverResponse", response);
-            window.location.href = "/confirmation.html";
-        })
-        .catch(function (error) {
-            console.error(
-                "Erreur lors de la requête POST d'envoi des données au serveur, " +
-                    error
-            );
-        });
+    if (basket === null) {
+        var p = document.createElement("p");
+        tr.textContent = "Votre panier est vide";
+        form.insertBefore(error, document.getElementById("button"));
+    } else {
+        ajaxPost("http://localhost:3000/api/teddies/order", data)
+            .then(function (response) {
+                localStorage.removeItem("basket");
+                localStorage.setItem("serverResponse", response);
+                window.location.href = "/confirmation.html";
+            })
+            .catch(function (error) {
+                console.error(
+                    "Erreur lors de la requête POST d'envoi des données au serveur, " +
+                        error
+                );
+            });
+    }
 });
