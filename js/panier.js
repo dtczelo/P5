@@ -34,6 +34,7 @@ function getBasket() {
                     );
                 });
         }
+        // Réinitialise le panier
         resetBasket.addEventListener('click', function (e) {
             localStorage.removeItem('basket');
             window.location.reload();

@@ -25,6 +25,7 @@ ajaxGet("http://localhost:3000/api/teddies").then(function (response) {
         photo.src = product.imageUrl;
         photo.classList.add('card-img-top');
         photo.classList.add('rounded');
+        photo.setAttribute("width", "20");
         linkImage.appendChild(photo);
 
         // Création corps de carte
