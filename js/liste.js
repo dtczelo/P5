@@ -10,8 +10,12 @@ ajaxGet("http://localhost:3000/api/teddies").then(function (response) {
         var product = products[i];
         // Création de la carte produit
         var card = document.createElement('article');
+        card.classList.add('col-12');
+        card.classList.add('col-md-8');
+        card.classList.add('col-lg-6');
         card.classList.add('card');
-        card.classList.add('m-5');
+        card.classList.add('m-4');
+        card.classList.add('p-0');
         card.classList.add('shadow');
         listElt.appendChild(card);
 
@@ -25,7 +29,6 @@ ajaxGet("http://localhost:3000/api/teddies").then(function (response) {
         photo.src = product.imageUrl;
         photo.classList.add('card-img-top');
         photo.classList.add('rounded');
-        photo.setAttribute("width", "20");
         linkImage.appendChild(photo);
 
         // Création corps de carte

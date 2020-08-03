@@ -13,6 +13,9 @@ ajaxGet("http://localhost:3000/api/teddies" + "/" + id)
 
   // Création de la carte produit
   var card = document.createElement("article");
+  card.classList.add('col-12');
+  card.classList.add('col-md-8');
+  card.classList.add('col-lg-6');
   card.classList.add("card");
   card.classList.add("m-5");
   card.classList.add("shadow");
